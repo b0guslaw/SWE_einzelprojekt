@@ -19,5 +19,7 @@ public abstract class LKW extends Fahrzeug {
         for (int j = baujahr; j < currentYear; j++) {
             rate = rate + 5;
         }
+
+        return rate;
     }
 }
