@@ -7,6 +7,38 @@
  * of the License, or (at your option) any later version.
  */
 
-public abstract class PKW extends Fahrzeug {
+import java.util.Calendar;
 
+public abstract class PKW extends Fahrzeug {
+    int letztePruefung;
+    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+    double getRabatt() {
+        double rate = 0;
+
+        for(int j = baujahr; j < currentYear; j++){
+            rate = rate+5;
+        }
+
+        for(int i = letztePruefung; i < currentYear; i++){
+            rate += 2;
+        }
+
+        if(rate > 20){ rate = 20;}
+
+        return rate;
+    }
+
+    public void setLetztePruefung(int letztePruefung){
+        this.letztePruefung = letztePruefung;
+    }
+
+    public int getLetztePruefung(){
+        return letztePruefung;
+    }
+
+    public String toString(){
+        String data = marke + " " + modell + " " + baujahr + " " + grundpreis + " " + id;
+        return data;
+    }
 }

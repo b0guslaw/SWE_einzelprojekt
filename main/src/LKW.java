@@ -7,5 +7,17 @@
  * of the License, or (at your option) any later version.
  */
 
-public abstract class LKW extends Fahrzeug{
+import java.util.Calendar;
+
+public abstract class LKW extends Fahrzeug {
+
+    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+    double getRabatt(){
+        double rate = 0;
+
+        for (int j = baujahr; j < currentYear; j++) {
+            rate = rate + 5;
+        }
+    }
 }
