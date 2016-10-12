@@ -6,40 +6,39 @@
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
  */
+import java.io.Serializable;
 import java.util.Calendar;
 
+public abstract class Fahrzeug implements Serializable {
 
-public abstract class Fahrzeug {
+    private String marke;
+    private String modell;
+    private int baujahr;
+    private double grundpreis;
+    private int id;
 
-    public String marke;
-    public String modell;
-    public int baujahr;
-    public double grundpreis;
-    public int id;
-
-    public Fahrzeug(String marke, String modell, int baujahr, double grundpreis, int id){
-
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        try {
-            if (baujahr > currentYear) {
-                throw new IllegalArgumentException();
-            }
-
-            this.marke = marke;
-            this.modell = modell;
-            this.baujahr = baujahr;
-            this.grundpreis = grundpreis;
-            this.id = id;
-
-        } catch(Exception e) {
-            System.out.println("Baujahr darf nicht in der Zukunft liegen");
-            e.printStackTrace();
-        }
+    public Fahrzeug(String marke, String modell, int baujahr, double grundpreis, int id) {
+        setMarke(marke);
+        setModell(modell);
+        setBaujahr(baujahr);
+        setGrundpreis(grundpreis);
+        setId(id);
     }
 
-    public Fahrzeug(){
-        throw new IllegalArgumentException();
+    private void setMarke(String marke) {
+        this.marke = marke;
+    }
+
+    public String getMarke(){
+    return marke;
+    }
+
+    private void setModell(String modell) {
+        this.modell = modell;
+    }
+
+    public String getModell(){
+        return modell;
     }
 
     public double getAlter(){
@@ -47,8 +46,39 @@ public abstract class Fahrzeug {
         return alter;
     }
 
+    private void setBaujahr(int baujahr){
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR); try {
+            if (baujahr > currentYear) {
+                throw new IllegalArgumentException("Baujahr darf nicht in der Zukunft liegen");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.baujahr = baujahr;
+    }
+
+    public int getBaujahr(){
+        return baujahr;
+    }
+
+    private void setGrundpreis(double grundpreis){
+        this.grundpreis = grundpreis;
+    }
+
+    public double getGrundpreis(){
+        return grundpreis;
+    }
+
     public double getPreis(){
         return grundpreis - getRabatt();
+    }
+
+    private void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     abstract double getRabatt();

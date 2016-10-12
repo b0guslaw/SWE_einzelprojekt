@@ -10,13 +10,18 @@
 import java.util.Calendar;
 
 public abstract class PKW extends Fahrzeug {
-    int letztePruefung;
-    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    private int letztePruefung;
+    private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+    public PKW(String marke, String modell, int baujahr, double grundpreis, int id, int letztePruefung){
+        super(marke,modell,baujahr,grundpreis,id);
+        setLetztePruefung(letztePruefung);
+    }
 
     double getRabatt() {
         double rate = 0;
 
-        for(int j = baujahr; j < currentYear; j++){
+        for(int j = getBaujahr(); j < currentYear; j++){
             rate = rate+5;
         }
 
@@ -24,7 +29,7 @@ public abstract class PKW extends Fahrzeug {
             rate += 2;
         }
 
-        if(rate > 20){ rate = 20;}
+        if(rate > 15){ rate = 15;}
 
         return rate;
     }
@@ -38,7 +43,7 @@ public abstract class PKW extends Fahrzeug {
     }
 
     public String toString(){
-        String data = marke + " " + modell + " " + baujahr + " " + grundpreis + " " + id;
+        String data = getMarke() + " " + getModell() + " " + getBaujahr() + " " + getGrundpreis() + " " + getId();
         return data;
     }
 }
