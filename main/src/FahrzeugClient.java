@@ -32,16 +32,16 @@ public class FahrzeugClient {
         System.out.println("Allen Befehlen muss eine Datenquelle vorangestellt werden.\n");
         System.out.println("Befehlsliste mit moeglichen Argumenten:\n");
         System.out.println("<show> - zeigt alle gespeicherten Fahrzeuge an.\n");
-        System.out.println("<show> \"id\" - zeigt das at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.Fahrzeug mit der uebergebenen ID. \n");
-        System.out.println("<add> pkw <id> <marke> <modell> <baujahr> <grundpreis> <ueberpruefungsdatum> - Fuegt ein at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.Fahrzeug hinzu, parameter sind verpflichtend");
-        System.out.println("<del> \"id\" - loescht das at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.Fahrzeug mit der uebergebenen ID aus der Liste.\n");
+        System.out.println("<show> \"id\" - zeigt das at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug mit der uebergebenen ID. \n");
+        System.out.println("<add> pkw <id> <marke> <modell> <baujahr> <grundpreis> <ueberpruefungsdatum> - Fuegt ein at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug hinzu, parameter sind verpflichtend");
+        System.out.println("<del> \"id\" - loescht das at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug mit der uebergebenen ID aus der Liste.\n");
         System.out.println("<count> - gibt die Anzahl der gespeicherten Fahrzeuge zurueck.\n");
-        System.out.println("<count> \"lkw/pkw\" - gibt die Anzahl der gespeicherten at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.LKW/at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.PKW zurueck.\n");
+        System.out.println("<count> \"lkw/pkw\" - gibt die Anzahl der gespeicherten at.ac.univie.swe2016.fm.fahrzeuge.LKW/at.ac.univie.swe2016.fm.fahrzeuge.PKW zurueck.\n");
         System.out.println("<meaprice> - gibt den Durchschnittspreis der gespeicherten Fahrzeuge zurueck.\n");
-        System.out.println("<meanprice> \"lkw/pkw\" - gibt den Durchnschnittspreis der gespeicherten at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.LKW/at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.PKW zurueck.\n");
+        System.out.println("<meanprice> \"lkw/pkw\" - gibt den Durchnschnittspreis der gespeicherten at.ac.univie.swe2016.fm.fahrzeuge.LKW/at.ac.univie.swe2016.fm.fahrzeuge.PKW zurueck.\n");
         System.out.println("<meanage> - gibt das Durschnittsalter der gespeicherten Fahrzeuge zurueck.\n");
-        System.out.println("<meanage> \"lkw/pkw\" - gibt das Durchschnittsalter der gespeicherten at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.LKW/at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.PKW zurueck.\n");
-        System.out.println("<oldest> - zeigt das aelteste gespeicherte at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge.Fahrzeug.\n");
+        System.out.println("<meanage> \"lkw/pkw\" - gibt das Durchschnittsalter der gespeicherten at.ac.univie.swe2016.fm.fahrzeuge.LKW/at.ac.univie.swe2016.fm.fahrzeuge.PKW zurueck.\n");
+        System.out.println("<oldest> - zeigt das aelteste gespeicherte at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug.\n");
         System.out.println("<help> - zeigt dieses menu.\n");
         System.out.println("------------------------------------------------------------------------------------------\n");
     }
