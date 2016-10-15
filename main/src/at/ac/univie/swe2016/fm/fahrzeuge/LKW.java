@@ -1,5 +1,3 @@
-package at.ac.univie.swe2016.fm.fahrzeuge;
-
 /**
  * Created by Ralph Dworzanski on 11.10.16.
  *
@@ -8,6 +6,8 @@ package at.ac.univie.swe2016.fm.fahrzeuge;
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
  */
+
+package at.ac.univie.swe2016.fm.fahrzeuge;
 
 import java.util.Calendar;
 

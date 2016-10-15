@@ -1,5 +1,3 @@
-package at.ac.univie.swe2016.fm.fahrzeuge.dao;
-
 /**
  * Created by Ralph Dworzanski on 11.10.16.
  *
@@ -8,33 +6,16 @@ package at.ac.univie.swe2016.fm.fahrzeuge.dao;
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
  */
+
+package at.ac.univie.swe2016.fm.fahrzeuge.dao;
+
 import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
 
 import java.util.ArrayList;
 
-public class FahrzeugDAO {
-
-    private String path;
-    ArrayList<Object> fahrzeugList = new ArrayList<Object>();
-
-    public FahrzeugDAO(String path){
-        this.path = path;
-    }
-
-    public void speichereFahrzeug(Fahrzeug f){
-        if(fahrzeugList.contains(f)) { throw new IllegalArgumentException("at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug exisitiert bereits"); }
-        fahrzeugList.add(f);
-    }
-
-    public void loescheFahrzeug(Fahrzeug f){
-        fahrzeugList.remove(f);
-    }
-
-    public Fahrzeug getFahrzeugById(int id){
-        for(Object o : fahrzeugList){
-
-        }
-
-        return null;
-    }
+public interface FahrzeugDAO {
+    public void speichereFahrzeug(Fahrzeug f);
+    public void loescheFahrzeug(Fahrzeug f);
+    public Fahrzeug getFahrzeugById(int id);
+    public ArrayList<Fahrzeug> getFahrzeugList();
 }

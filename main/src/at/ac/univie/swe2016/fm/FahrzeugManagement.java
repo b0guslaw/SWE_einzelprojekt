@@ -1,5 +1,3 @@
-package at.ac.univie.swe2016.fm;
-
 /**
  * Created by Ralph Dworzanski on 11.10.16.
  *
@@ -9,5 +7,10 @@ package at.ac.univie.swe2016.fm;
  * of the License, or (at your option) any later version.
  */
 
+package at.ac.univie.swe2016.fm;
+
+import at.ac.univie.swe2016.fm.fahrzeuge.dao.FahrzeugDAO;
+
 public class FahrzeugManagement {
+    //TODO
 }
