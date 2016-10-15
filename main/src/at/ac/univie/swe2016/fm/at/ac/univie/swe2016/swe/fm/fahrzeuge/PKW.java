@@ -1,4 +1,4 @@
-/**
+package at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge; /**
  * Created by Ralph Dworzanski on 11.10.16.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +34,7 @@ public abstract class PKW extends Fahrzeug {
         return rate;
     }
 
-    public void setLetztePruefung(int letztePruefung){
+    private void setLetztePruefung(int letztePruefung){
         this.letztePruefung = letztePruefung;
     }
 
@@ -43,7 +43,6 @@ public abstract class PKW extends Fahrzeug {
     }
 
     public String toString(){
-        String data = getMarke() + " " + getModell() + " " + getBaujahr() + " " + getGrundpreis() + " " + getId();
-        return data;
+        return getMarke() + " " + getModell() + " " + getBaujahr() + " " + getGrundpreis() + " " + getId();
     }
 }

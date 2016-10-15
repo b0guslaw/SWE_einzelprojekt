@@ -1,3 +1,5 @@
+package swe2016.fm.fahrzeuge.dao;
+
 /**
  * Created by Ralph Dworzanski on 11.10.16.
  *

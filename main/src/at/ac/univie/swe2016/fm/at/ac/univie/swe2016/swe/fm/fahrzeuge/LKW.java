@@ -1,4 +1,4 @@
-/**
+package at.ac.univie.swe2016.fm.at.ac.univie.swe2016.swe.fm.fahrzeuge; /**
  * Created by Ralph Dworzanski on 11.10.16.
  *
  * This program is free software; you can redistribute it and/or
