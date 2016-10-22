@@ -34,4 +34,6 @@ public class LKW extends Fahrzeug {
         String data = getMarke() + " " + getModell() + " " + getBaujahr() + " " + getGrundpreis() + getId();
         return data;
     }
+
+    //Test
 }
