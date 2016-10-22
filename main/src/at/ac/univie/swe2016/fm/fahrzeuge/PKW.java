@@ -11,7 +11,7 @@ package at.ac.univie.swe2016.fm.fahrzeuge;
 
 import java.util.Calendar;
 
-public abstract class PKW extends Fahrzeug {
+public class PKW extends Fahrzeug {
     private int letztePruefung;
     private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 

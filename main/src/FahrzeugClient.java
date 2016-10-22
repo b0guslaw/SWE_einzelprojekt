@@ -7,14 +7,19 @@
  * of the License, or (at your option) any later version.
  */
 
+import at.ac.univie.swe2016.fm.FahrzeugManagement;
+
 import java.io.File;
 import java.io.IOException;
 
 public class FahrzeugClient {
 
     public static void main(String[] args){
+
+        FahrzeugManagement manager = new FahrzeugManagement();
+
         if(args.length > 0){
-            File f = new File(args[0]){}
+            File f = new File(args[0]);
             if(!f.exists()) {
                 try {
                     f.createNewFile();
@@ -26,7 +31,7 @@ public class FahrzeugClient {
             if(args[1].equals("show")){
 
             } else if(args[1].equals("add")){
-
+                manager.addFahrzeug(args);
             } else if(args[1].equals("del")){
 
             } else if(args[1].equals("count")){
