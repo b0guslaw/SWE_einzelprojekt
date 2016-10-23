@@ -25,7 +25,7 @@ public class FahrzeugManagement {
         return fahrzeugDAO;
     }
 
-    public void shoowFahrzeuge(){
+    public void showFahrzeuge(){
         for(Fahrzeug f : fahrzeugDAO.getFahrzeugList()){
             System.out.println(f.toString());
         }
@@ -33,13 +33,17 @@ public class FahrzeugManagement {
 
     public void addFahrzeug(String args[]){
         if(args[1].toLowerCase().equals("lkw")){
-            Fahrzeug f = new LKW(args[2],args[3],Integer.parseInt(args[4]),Double.parseDouble(args[5]),args[6]);
+            Fahrzeug f = new LKW(Integer.parseInt(args[2]),args[3],args[4],Integer.parseInt(args[5]),Double.parseDouble(args[6]));
             //<Datenquelle> add lkw 1 Iveco "Eurocargo ML80E" 2014 18000.5
+            fahrzeugDAO.speichereFahrzeug(f);
         }
     }
 
-    public void removeFahrzeug(Fahrzeug f){
-        fahrzeugDAO.loescheFahrzeug(f);
+    public void removeFahrzeug(String args[]){
+        if(args[1].toLowerCase().equals("lkw")){
+            Fahrzeug f = new LKW(Integer.parseInt(args[2]),args[3],args[4],Integer.parseInt(args[5]),Double.parseDouble(args[6]));
+            fahrzeugDAO.loescheFahrzeug(f);
+        }
     }
 
     public void getFahrzeugAnzahl() {

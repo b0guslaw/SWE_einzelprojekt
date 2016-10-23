@@ -11,20 +11,37 @@ package at.ac.univie.swe2016.fm.fahrzeuge.dao;
 
 import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class SerializedFahrzeugDAO implements FahrzeugDAO {
 
-    private String path;
+    private String serPfad;
+    private ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
 
     ArrayList<Fahrzeug> fahrzeugList = new ArrayList<Fahrzeug>();
 
-    public SerializedFahrzeugDAO(String path){
-        this.path = path;
+    public SerializedFahrzeugDAO(String serPfad){
+        this.serPfad = serPfad;
+
+        File f = new File(serPfad);
+        if(!f.exists()){
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                FileInputStream fin = new FileInputStream(serPfad);
+                ObjectInputStream oin = new ObjectInputStream(fin);
+
+                fList = (ArrayList<Fahrzeug>) oin.readObject();
+                fahrzeugList = fList;
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public void speichereFahrzeug(Fahrzeug f){
@@ -52,7 +69,7 @@ public class SerializedFahrzeugDAO implements FahrzeugDAO {
 
     public void saveData(ArrayList<Fahrzeug> _data) throws FileNotFoundException {
         try {
-            FileOutputStream stream = new FileOutputStream(path);
+            FileOutputStream stream = new FileOutputStream(serPfad);
             ObjectOutputStream oos = new ObjectOutputStream(stream);
             oos.writeObject(_data);
         } catch (IOException e) {

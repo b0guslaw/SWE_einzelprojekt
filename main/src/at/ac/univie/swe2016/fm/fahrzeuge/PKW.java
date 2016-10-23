@@ -12,11 +12,11 @@ package at.ac.univie.swe2016.fm.fahrzeuge;
 import java.util.Calendar;
 
 public class PKW extends Fahrzeug {
-    private int letztePruefung;
+    private String letztePruefung;
     private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-    public PKW(String marke, String modell, int baujahr, double grundpreis, int id, int letztePruefung){
-        super(marke,modell,baujahr,grundpreis,id);
+    public PKW( int id,String marke, String modell, int baujahr, double grundpreis, String letztePruefung){
+        super(id,marke,modell,baujahr,grundpreis);
         setLetztePruefung(letztePruefung);
     }
 
@@ -27,20 +27,20 @@ public class PKW extends Fahrzeug {
             rate = rate+5;
         }
 
-        for(int i = letztePruefung; i < currentYear; i++){
+        /*for(int i = letztePruefung; i < currentYear; i++){
             rate += 2;
-        }
+        }*/
 
         if(rate > 15){ rate = 15;}
 
         return rate;
     }
 
-    private void setLetztePruefung(int letztePruefung){
+    private void setLetztePruefung(String letztePruefung){
         this.letztePruefung = letztePruefung;
     }
 
-    public int getLetztePruefung(){
+    public String getLetztePruefung(){
         return letztePruefung;
     }
 

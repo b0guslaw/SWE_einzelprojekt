@@ -15,8 +15,8 @@ public class LKW extends Fahrzeug {
 
     int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-    public LKW(String marke, String modell, int baujahr, double grundpreis, int id){
-        super(marke,modell,baujahr,grundpreis,id);
+    public LKW(int id, String marke, String modell, int baujahr, double grundpreis){
+        super(id,marke,modell,baujahr,grundpreis);
     }
 
     double getRabatt(){

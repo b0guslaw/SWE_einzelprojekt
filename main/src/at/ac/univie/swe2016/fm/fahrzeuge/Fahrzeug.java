@@ -20,12 +20,12 @@ public abstract class Fahrzeug implements Serializable {
     private double grundpreis;
     private int id;
 
-    public Fahrzeug(String marke, String modell, int baujahr, double grundpreis, int id) {
+    public Fahrzeug(int id, String marke, String modell, int baujahr, double grundpreis) {
+        setId(id);
         setMarke(marke);
         setModell(modell);
         setBaujahr(baujahr);
         setGrundpreis(grundpreis);
-        setId(id);
     }
 
     private void setMarke(String marke) {

@@ -9,47 +9,31 @@
 
 import at.ac.univie.swe2016.fm.FahrzeugManagement;
 
-import java.io.File;
-import java.io.IOException;
-
 public class FahrzeugClient {
 
     public static void main(String[] args){
 
         FahrzeugManagement manager = new FahrzeugManagement();
 
-        if(args.length > 0){
-            File f = new File(args[0]);
-            if(!f.exists()) {
-                try {
-                    f.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        if(args[1].equals("show")){
+            manager.showFahrzeuge();
+        } else if(args[1].equals("add")){
+            manager.addFahrzeug(args);
+        } else if(args[1].equals("del")){
+            manager.removeFahrzeug(args);
+        } else if(args[1].equals("count")){
 
-            if(args[1].equals("show")){
+        } else if(args[1].equals("meanprice")){
 
-            } else if(args[1].equals("add")){
-                manager.addFahrzeug(args);
-            } else if(args[1].equals("del")){
+        } else if(args[1].equals("meanage")){
 
-            } else if(args[1].equals("count")){
+        } else if(args[1].equals("oldest")){
 
-            } else if(args[1].equals("meanprice")){
-
-            } else if(args[1].equals("meanage")){
-
-            } else if(args[1].equals("oldest")){
-
-            } else if(args[1].equals("help")){
-                showHelpMenu();
-            }
-
+        } else if(args[1].equals("help")){
+            showHelpMenu();
         } else {
             System.out.println("Unbekannter Befehl");
             showHelpMenu();
-
         }
 
     }
