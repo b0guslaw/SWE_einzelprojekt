@@ -13,7 +13,7 @@ public class FahrzeugClient {
 
     public static void main(String[] args){
 
-        FahrzeugManagement manager = new FahrzeugManagement();
+        FahrzeugManagement manager = new FahrzeugManagement(args[0]);
 
         if(args[1].equals("show")){
             manager.showFahrzeuge();
@@ -22,13 +22,19 @@ public class FahrzeugClient {
         } else if(args[1].equals("del")){
             manager.removeFahrzeug(args);
         } else if(args[1].equals("count")){
-
+            manager.getFahrzeugAnzahl();
         } else if(args[1].equals("meanprice")){
-
+            if(args[1].toLowerCase().equals("lkw")){
+                manager.getMeanPriceLKW();
+            } else if(args[1].toLowerCase().equals("PKW")){
+                manager.getMeanPricePKW();
+            } else {
+                manager.getMeanPrice();
+            }
         } else if(args[1].equals("meanage")){
-
+            manager.getMeanAge();
         } else if(args[1].equals("oldest")){
-
+            manager.getOldestVehicle();
         } else if(args[1].equals("help")){
             showHelpMenu();
         } else {

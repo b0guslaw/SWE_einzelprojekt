@@ -47,6 +47,11 @@ public class SerializedFahrzeugDAO implements FahrzeugDAO {
     public void speichereFahrzeug(Fahrzeug f){
         if(fahrzeugList.contains(f)) { throw new IllegalArgumentException("Fahrzeug exisitiert bereits"); }
         fahrzeugList.add(f);
+        try {
+            saveData(fList);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loescheFahrzeug(Fahrzeug f){

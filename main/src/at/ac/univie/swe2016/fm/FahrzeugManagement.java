@@ -13,9 +13,16 @@ import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
 import at.ac.univie.swe2016.fm.fahrzeuge.LKW;
 import at.ac.univie.swe2016.fm.fahrzeuge.PKW;
 import at.ac.univie.swe2016.fm.fahrzeuge.dao.FahrzeugDAO;
+import at.ac.univie.swe2016.fm.fahrzeuge.dao.SerializedFahrzeugDAO;
+
+import java.util.ArrayList;
 
 public class FahrzeugManagement {
     private FahrzeugDAO fahrzeugDAO;
+
+    public FahrzeugManagement(String path){
+        fahrzeugDAO = new SerializedFahrzeugDAO(path);
+    }
 
     public void setFahrzeugDao(FahrzeugDAO fahrzeugDAO){
         this.fahrzeugDAO = fahrzeugDAO;
@@ -26,13 +33,11 @@ public class FahrzeugManagement {
     }
 
     public void showFahrzeuge(){
-        for(Fahrzeug f : fahrzeugDAO.getFahrzeugList()){
-            System.out.println(f.toString());
-        }
+
     }
 
     public void addFahrzeug(String args[]){
-        if(args[1].toLowerCase().equals("lkw")){
+        if(args[2].toLowerCase().equals("lkw")){
             Fahrzeug f = new LKW(Integer.parseInt(args[2]),args[3],args[4],Integer.parseInt(args[5]),Double.parseDouble(args[6]));
             //<Datenquelle> add lkw 1 Iveco "Eurocargo ML80E" 2014 18000.5
             fahrzeugDAO.speichereFahrzeug(f);
@@ -90,7 +95,7 @@ public class FahrzeugManagement {
         System.out.println(meanage/counter);
     }
 
-    public void getMeanPricePKWe(){
+    public void getMeanPricePKW(){
         double meanage = 0;
         int counter = 0;
         for(Fahrzeug f : fahrzeugDAO.getFahrzeugList()){
