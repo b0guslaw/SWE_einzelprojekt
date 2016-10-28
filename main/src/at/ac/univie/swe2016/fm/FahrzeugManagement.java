@@ -33,15 +33,23 @@ public class FahrzeugManagement {
     }
 
     public void showFahrzeuge(){
+        ArrayList<Fahrzeug> fList = fahrzeugDAO.getFahrzeugList();
 
+        if(fList.isEmpty()){
+            return;
+        }
+
+        for(Fahrzeug f : fList){
+            System.out.println(f.toString());
+        }
     }
 
     public void addFahrzeug(String args[]){
-        if(args[2].toLowerCase().equals("lkw")){
-            Fahrzeug f = new LKW(Integer.parseInt(args[2]),args[3],args[4],Integer.parseInt(args[5]),Double.parseDouble(args[6]));
-            //<Datenquelle> add lkw 1 Iveco "Eurocargo ML80E" 2014 18000.5
+        if(args[2].equals("lkw")){
+            LKW f = new LKW(Integer.parseInt(args[3]),args[4],args[5],Integer.parseInt(args[6]),Double.parseDouble(args[7]));
+            //C:\Users\ralph\Desktop\data.ser add lkw 1 Iveco Eurocargo 2014 18000.5
             fahrzeugDAO.speichereFahrzeug(f);
-        }
+       }
     }
 
     public void removeFahrzeug(String args[]){

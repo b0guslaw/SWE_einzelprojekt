@@ -12,7 +12,7 @@ package at.ac.univie.swe2016.fm.fahrzeuge;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public abstract class Fahrzeug implements Serializable {
+public abstract class Fahrzeug implements Serializable{
 
     private String marke;
     private String modell;

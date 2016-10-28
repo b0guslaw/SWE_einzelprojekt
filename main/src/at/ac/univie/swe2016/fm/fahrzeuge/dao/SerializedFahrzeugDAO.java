@@ -10,45 +10,45 @@
 package at.ac.univie.swe2016.fm.fahrzeuge.dao;
 
 import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
+import at.ac.univie.swe2016.fm.fahrzeuge.LKW;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class SerializedFahrzeugDAO implements FahrzeugDAO {
+public class SerializedFahrzeugDAO implements FahrzeugDAO, Serializable {
 
     private String serPfad;
-    private ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
 
-    ArrayList<Fahrzeug> fahrzeugList = new ArrayList<Fahrzeug>();
+    private ArrayList<Fahrzeug> fahrzeugList;
 
     public SerializedFahrzeugDAO(String serPfad){
         this.serPfad = serPfad;
 
         File f = new File(serPfad);
-        if(!f.exists()){
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
+        if(f.exists()){
             try {
                 FileInputStream fin = new FileInputStream(serPfad);
                 ObjectInputStream oin = new ObjectInputStream(fin);
 
-                fList = (ArrayList<Fahrzeug>) oin.readObject();
-                fahrzeugList = fList;
-            } catch (Exception e){
+                fahrzeugList = (ArrayList<Fahrzeug>) oin.readObject();
+
+                oin.close();
+                fin.close();
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public ArrayList<Fahrzeug> getFahrzeugList(){
+        return fahrzeugList;
     }
 
     public void speichereFahrzeug(Fahrzeug f){
         if(fahrzeugList.contains(f)) { throw new IllegalArgumentException("Fahrzeug exisitiert bereits"); }
         fahrzeugList.add(f);
         try {
-            saveData(fList);
+            saveData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -68,19 +68,16 @@ public class SerializedFahrzeugDAO implements FahrzeugDAO {
         return null;
     }
 
-    public ArrayList<Fahrzeug> getFahrzeugList(){
-        return fahrzeugList;
-    }
-
-    public void saveData(ArrayList<Fahrzeug> _data) throws FileNotFoundException {
+    private void saveData() throws FileNotFoundException {
         try {
             FileOutputStream stream = new FileOutputStream(serPfad);
             ObjectOutputStream oos = new ObjectOutputStream(stream);
-            oos.writeObject(_data);
+            oos.writeObject(fahrzeugList);
+            oos.close();
+            stream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 }

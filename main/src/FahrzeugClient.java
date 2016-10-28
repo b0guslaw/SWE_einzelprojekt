@@ -13,6 +13,12 @@ public class FahrzeugClient {
 
     public static void main(String[] args){
 
+        if(args.length < 2){
+            System.out.println("Bitte beachten Sie die Anleitung zu dem Programm");
+            showHelpMenu();
+            System.exit(1);
+        }
+
         FahrzeugManagement manager = new FahrzeugManagement(args[0]);
 
         if(args[1].equals("show")){
@@ -24,9 +30,9 @@ public class FahrzeugClient {
         } else if(args[1].equals("count")){
             manager.getFahrzeugAnzahl();
         } else if(args[1].equals("meanprice")){
-            if(args[1].toLowerCase().equals("lkw")){
+            if(args[2].toLowerCase().equals("lkw")){
                 manager.getMeanPriceLKW();
-            } else if(args[1].toLowerCase().equals("PKW")){
+            } else if(args[2].toLowerCase().equals("PKW")){
                 manager.getMeanPricePKW();
             } else {
                 manager.getMeanPrice();
