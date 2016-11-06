@@ -1,17 +1,13 @@
-/**
- * Created by Ralph Dworzanski on 11.10.16.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- */
-
-import at.ac.univie.swe2016.fm.FahrzeugManagement;
+import at.ac.univie.swe2016.fm.*;
+import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
+import at.ac.univie.swe2016.fm.fahrzeuge.PKW;
 
 public class FahrzeugClient {
 
     public static void main(String[] args){
+
+        String pfad = args[0];
+        String command = args[1];
 
         if(args.length < 2){
             System.out.println("Bitte beachten Sie die Anleitung zu dem Programm");
@@ -19,28 +15,44 @@ public class FahrzeugClient {
             System.exit(1);
         }
 
-        FahrzeugManagement manager = new FahrzeugManagement(args[0]);
+        FahrzeugManagement manager = new FahrzeugManagement(pfad);
 
-        if(args[1].equals("show")){
-            manager.showFahrzeuge();
-        } else if(args[1].equals("add")){
-            manager.addFahrzeug(args);
+        if(args[1].toLowerCase().equals("show")){
+            if(!args[2].equals(null)){
+                Fahrzeug f = new PKW(Integer.parseInt(args[2]),null,null,0,0,null);
+                manager.showFahrzeug(f);
+            }
+            manager.showFahrzeug();
+        } else if(args[1].toLowerCase().equals("add")){
+            if(args[2].equals(null) || args[3].equals(null)){
+                if(args[2].toLowerCase().equals("pkw") || args[2].toLowerCase().equals("lkw")){
+                    manager.addFahrzeug(args);
+                }
+            }
+
         } else if(args[1].equals("del")){
-            manager.removeFahrzeug(args);
+            manager.loescheFahrzeug(args[2]);
+
         } else if(args[1].equals("count")){
-            manager.getFahrzeugAnzahl();
+            if(args[2].toLowerCase().equals("lkw")){
+                manager.countLKW();
+            } else if(args[2].toLowerCase().equals("PKW")){
+                manager.countPKW();
+            } else {
+                manager.fahrzeugAnzahl();
+            }
         } else if(args[1].equals("meanprice")){
             if(args[2].toLowerCase().equals("lkw")){
-                manager.getMeanPriceLKW();
+                manager.meanPriceLKW();
             } else if(args[2].toLowerCase().equals("PKW")){
-                manager.getMeanPricePKW();
+                manager.meanPricePKW();
             } else {
-                manager.getMeanPrice();
+                manager.meanPrice();
             }
         } else if(args[1].equals("meanage")){
-            manager.getMeanAge();
+            manager.meanAge();
         } else if(args[1].equals("oldest")){
-            manager.getOldestVehicle();
+            manager.findOldest();
         } else if(args[1].equals("help")){
             showHelpMenu();
         } else {
