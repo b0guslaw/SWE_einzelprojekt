@@ -5,7 +5,14 @@ import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
 import java.io.*;
 import java.util.ArrayList;
 
-public class SerializedFahrzeugDAO implements FahrzeugDao, Serializable {
+/**
+ * @author Ralph Dworzanski
+ *
+ * Die Klasse SerializedFahrzeugDAO ist eine Implementation des Interface FahrzeugDAO. Bei Initalisierung versucht sie
+ * ein File zu laden des uebergeben Pfades, wird das File gefunden wird es deserialisiert und in eine ArrayList kopiert,
+ * falls nicht wird das erstellen oder laden einer File  uebersprungen. FILE I/O geschieht in der Methode savefile()
+ */
+public class SerializedFahrzeugDAO implements FahrzeugDAO {
 
     private String path;
     ArrayList<Fahrzeug> fahrzeugList = new ArrayList<>();
@@ -93,14 +100,8 @@ public class SerializedFahrzeugDAO implements FahrzeugDao, Serializable {
      */
     @Override
     public void loescheFahrzeug(Fahrzeug f) {
-        for(Fahrzeug c : fahrzeugList){
-            if(c.getId() == f.getId()){
                 fahrzeugList.remove(f);
                 saveFile();
-            }
-        }
-
-        throw new IllegalArgumentException("Fahrzeug nicht in der Liste gefunden.");
     }
 
     /**
@@ -109,13 +110,18 @@ public class SerializedFahrzeugDAO implements FahrzeugDao, Serializable {
      */
     private void saveFile(){
         try{
+
+            if(fahrzeugList.isEmpty()){
+                file.delete();
+                return;
+            }
+
             FileOutputStream fileOut = new FileOutputStream(path);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
             objectOut.writeObject(fahrzeugList);
             objectOut.close();
             fileOut.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

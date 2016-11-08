@@ -1,23 +1,33 @@
 package at.ac.univie.swe2016.fm.fahrzeuge;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-public class PKW extends Fahrzeug {
+/**
+ * @author Ralph Dworzanski
+ *
+ * Die Klasse PKW erweitert die Klasse Fahrzeug und implementiert die abstrakte Funktion getRabatt() und erweitert sie um eine
+ * Funktion get- und setLetztePruefung()
+ */
+public class PKW extends Fahrzeug implements Serializable {
+    private static final long serialVersionUID = 4536469476947546147L;
     private String letztePruefung;
-    SimpleDateFormat parser = new SimpleDateFormat("YYYY-MM-DD");
 
     public PKW(int id, String marke, String modell, double baujahr, double grundpreis, String letztePruefung) {
         super(id, marke, modell, baujahr, grundpreis);
         setLetztePruefung(letztePruefung);
     }
 
+    /**
+     * Retourniert den Rabatt des Fahrzeugs basierend auf dem Baujahr und dem Jahr der letzten Prueufng
+     *
+     * @return
+     */
     @Override
     public int getRabatt() {
-        int rabatt = 0;
         LocalDate date = LocalDate.parse(letztePruefung);
-
-        rabatt = (int)(5*(currentYear - getBaujahr()) + 2*(currentYear - date.getYear()));
+        int rabatt = (int)(5*(currentYear - getBaujahr()) + 2*(currentYear - date.getYear()));
 
         if(rabatt > 15){
             rabatt = 15;

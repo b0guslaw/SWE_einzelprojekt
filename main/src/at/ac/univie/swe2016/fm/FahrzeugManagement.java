@@ -1,19 +1,22 @@
 package at.ac.univie.swe2016.fm;
 
-
 import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
 import at.ac.univie.swe2016.fm.fahrzeuge.LKW;
 import at.ac.univie.swe2016.fm.fahrzeuge.PKW;
-import swe2016.fahrzeuge.fm.FahrzeugDao;
+import swe2016.fahrzeuge.fm.FahrzeugDAO;
 import swe2016.fahrzeuge.fm.SerializedFahrzeugDAO;
 
 import java.util.ArrayList;
 
+/**
+ * @author Ralph Dworzanski
+ *
+ *Die Klasse FahrzeugManagement handhabt alle wichtigen Funktionen der ArrayList. Bei Initialisierung erstellt sie eine
+ * Instanz des Interfaces FahrzeugDAO und uebergibt diesem den String den sie bekommen hat.
+ */
 public class FahrzeugManagement {
-    String path;
-    FahrzeugDao dao;
-
-    Fahrzeug f;
+    private String path;
+    private FahrzeugDAO dao;
 
     public FahrzeugManagement(String path){
         this.path = path;
@@ -25,7 +28,7 @@ public class FahrzeugManagement {
      *
      * @return FahrzeugDAO
      */
-    public FahrzeugDao getDao() {
+    public FahrzeugDAO getDao() {
         return dao;
     }
 
@@ -34,7 +37,7 @@ public class FahrzeugManagement {
      *
      * @param dao
      */
-    public void setDao(FahrzeugDao dao) {
+    public void setDao(FahrzeugDAO dao) {
         this.dao = dao;
     }
 
@@ -101,19 +104,29 @@ public class FahrzeugManagement {
      * @param arg
      */
     public void loescheFahrzeug(String arg){
-        LKW l = new LKW(Integer.parseInt(arg),"","",0,0);
-        dao.loescheFahrzeug(l);
-        System.out.println("Fahrzeug erfolgreich geloescht");
+        int id = Integer.parseInt(arg);
+        for (Fahrzeug fahrzeug : dao.getFahrzeugList()) {
+            if(fahrzeug.getId() == id) {
+                dao.loescheFahrzeug(fahrzeug);
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Fahrzeug nicht in der Liste gefunden.");
     }
 
     /**
      * Zaehlt alle FahrzeugObjekte und gibt diese in der Konsole aus
      */
-    public void fahrzeugAnzahl(){
+    public void count(){
         ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
         System.out.println("Die Liste beinhaltet derzeit " + fList.size()+ " Fahrzeuge");
     }
 
+    /**
+     * Zaehlt alle Objekte des Typs PKW in der Liste
+     *
+     */
     public void countPKW(){
         int count = 0;
         ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
@@ -125,6 +138,10 @@ public class FahrzeugManagement {
         System.out.println("Die Liste beinhaltet derzeit " + count+ " PKW");
     }
 
+    /**
+     * Zaehlt alle Objekte des Typs LKW in der Liste
+     *
+     */
     public void countLKW(){
         int count = 0;
         ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
@@ -136,20 +153,27 @@ public class FahrzeugManagement {
         System.out.println("Die Liste beinhaltet derzeit " + count+ " LKW");
     }
 
+
+    /**
+     * Berechnet den Durchschnittspreis aller Fahrzeuge
+     *
+     */
     public void meanPrice(){
         double meanPrice = 0;
         ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
         for(Fahrzeug f : fList){
             meanPrice =+ f.getPreis();
-            }
-
+        }
         System.out.println("Der Durchschnittspreis aller Fahrzeuge betraegt " + meanPrice);
     }
 
+    /**
+     * Berechnet den Durchschnittspreis aller Fahrzeuge des Typs PKW
+     *
+     */
     public void meanPricePKW(){
         double meanPrice = 0;
-        ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
-        for(Fahrzeug f : fList){
+        for(Fahrzeug f : dao.getFahrzeugList()){
             if(f instanceof PKW) {
                 meanPrice = +f.getPreis();
             }
@@ -157,10 +181,13 @@ public class FahrzeugManagement {
         System.out.println("Der Durchschnittspreis aller PKW betraegt " + meanPrice);
     }
 
+    /**
+     * Berechnet den Durchschnittspreis aller Fahrzeuge des Typs LKW
+     *
+     */
     public void meanPriceLKW(){
         double meanPrice = 0;
-        ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
-        for(Fahrzeug f : fList){
+        for(Fahrzeug f : dao.getFahrzeugList()){
             if(f instanceof LKW) {
                 meanPrice = +f.getPreis();
             }
@@ -168,28 +195,38 @@ public class FahrzeugManagement {
         System.out.println("Der Durchschnittspreis aller LKW betraegt " + meanPrice);
     }
 
+    /**
+     * Berechnet das Durchschnittsalter aller Fahrzeuge
+     *
+     */
     public void meanAge(){
             double meanAge = 0;
-            ArrayList<Fahrzeug> fList = new ArrayList<>(dao.getFahrzeugList());
-            for(Fahrzeug f : fList){
-                if(f instanceof PKW) {
+            for(Fahrzeug f : dao.getFahrzeugList()){
                     meanAge = + f.getAlter();
-                }
             }
-            System.out.println("Das Durchschnittsalter aller Fahrzeuge betraegt " + meanAge);
+            System.out.println("Das Durchschnittsalter aller Fahrzeuge betraegt " + meanAge/dao.getFahrzeugList().size());
         }
 
-    public void findOldest(){
-        Fahrzeug oldest = null;
+    /**
+     * Findet das aelteste Fahrzeug in der Liste und gibt es aus
+     *
+     */
+    public void findOldest() {
+        if(dao.getFahrzeugList().isEmpty()){
+            throw new IllegalArgumentException("Es befinden sich keine Fahrzeuge in der Liste");
+        }
+
+        ArrayList<Fahrzeug> eldestVehicles = new ArrayList<>();
         for(Fahrzeug f : dao.getFahrzeugList()){
-            if(oldest == null || f.getAlter() > oldest.getAlter()){
-                oldest = f;
+            for(Fahrzeug g : dao.getFahrzeugList()){
+                if(eldestVehicles.isEmpty() || g.getAlter() < f.getAlter()){
+                    eldestVehicles.add(f);
+                }
             }
         }
-        if (oldest != null) {
-            System.out.println(oldest.getId());
-        } else {
-            throw new NullPointerException("Kein Fahrzeug gefunden");
+
+        for(Fahrzeug f : eldestVehicles){
+            showFahrzeug(f);
         }
     }
 }

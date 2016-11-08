@@ -1,15 +1,22 @@
 package at.ac.univie.swe2016.fm.fahrzeuge;
 
-
+import java.io.Serializable;
 import java.util.Calendar;
 
-public abstract class Fahrzeug {
+/**
+ * @author Ralph Dworzanski
+ *
+ * Die  abstrakte Klasse Fahrzeug stellt das Template für die Unterklassen dar. Sie stellt die Grundfunktionalitäten
+ * für alle Objekte des Typs Fahrzeug zur Vefuegung
+ */
+public abstract class Fahrzeug implements Serializable {
+    private static final long serialVersionUID = 7536469595622776147L;
+
     private String marke, modell;
     private double baujahr, grundpreis;
     private int id;
 
-    double currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
+    protected double currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
     /**
      * Konstruktor fuer alle Objekte des Typs Fahrzeug. Uebernimmt 5 Parameter und uebergibt diese

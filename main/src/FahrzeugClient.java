@@ -1,11 +1,14 @@
 import at.ac.univie.swe2016.fm.*;
 import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
-import at.ac.univie.swe2016.fm.fahrzeuge.PKW;
 
+/**
+ * @author Ralph Dworzanski
+ *
+ *Die Klasse FahrzeugClient ist das Interface und handhabt die uebergebenen Parameter und Befehle
+ */
 public class FahrzeugClient {
 
     public static void main(String[] args){
-
         String pfad = args[0];
         String command = args[1];
 
@@ -17,43 +20,53 @@ public class FahrzeugClient {
 
         FahrzeugManagement manager = new FahrzeugManagement(pfad);
 
-        if(args[1].toLowerCase().equals("show")){
-            if(!args[2].equals(null)){
-                Fahrzeug f = new PKW(Integer.parseInt(args[2]),null,null,0,0,null);
-                manager.showFahrzeug(f);
+        if(command.equalsIgnoreCase("show")){
+            if(args.length > 2){
+                int id = Integer.parseInt(args[2]);
+                for (Fahrzeug fahrzeug : manager.getDao().getFahrzeugList()) {
+                    if(fahrzeug.getId() == id) {
+                        manager.showFahrzeug(fahrzeug);
+                        return;
+                    }
+                }
+                System.out.println("Fahrzeug nicht gefunden");
+                return;
             }
             manager.showFahrzeug();
-        } else if(args[1].toLowerCase().equals("add")){
-            if(args[2].equals(null) || args[3].equals(null)){
+        } else if(command.equalsIgnoreCase("add")){
                 if(args[2].toLowerCase().equals("pkw") || args[2].toLowerCase().equals("lkw")){
                     manager.addFahrzeug(args);
                 }
-            }
-
-        } else if(args[1].equals("del")){
+        } else if(command.equalsIgnoreCase("del")){
             manager.loescheFahrzeug(args[2]);
 
-        } else if(args[1].equals("count")){
-            if(args[2].toLowerCase().equals("lkw")){
-                manager.countLKW();
-            } else if(args[2].toLowerCase().equals("PKW")){
-                manager.countPKW();
-            } else {
-                manager.fahrzeugAnzahl();
+        } else if(command.equalsIgnoreCase("count")){
+            if(args.length <= 3){
+                {
+                    if(args.length == 2){
+                        manager.count();
+                        return;
+                    }
+                    if(args[2].equalsIgnoreCase("pkw")){
+                        manager.countPKW();
+                    } else if(args[2].equalsIgnoreCase("lkw")){
+                        manager.countPKW();
+                    }
+                }
             }
-        } else if(args[1].equals("meanprice")){
+        } else if(command.equalsIgnoreCase("meanprice")){
             if(args[2].toLowerCase().equals("lkw")){
                 manager.meanPriceLKW();
-            } else if(args[2].toLowerCase().equals("PKW")){
+            } else if(args[2].equalsIgnoreCase("PKW")){
                 manager.meanPricePKW();
             } else {
                 manager.meanPrice();
             }
-        } else if(args[1].equals("meanage")){
+        } else if(command.equalsIgnoreCase("meanage")){
             manager.meanAge();
-        } else if(args[1].equals("oldest")){
+        } else if(command.equalsIgnoreCase("oldest")){
             manager.findOldest();
-        } else if(args[1].equals("help")){
+        } else if(command.equalsIgnoreCase("help")){
             showHelpMenu();
         } else {
             System.out.println("Unbekannter Befehl");
@@ -71,8 +84,9 @@ public class FahrzeugClient {
         System.out.println("Allen Befehlen muss eine Datenquelle vorangestellt werden.\n");
         System.out.println("Befehlsliste mit moeglichen Argumenten:\n");
         System.out.println("<show> - zeigt alle gespeicherten Fahrzeuge an.\n");
-        System.out.println("<show> \"id\" - zeigt das at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug mit der uebergebenen ID. \n");
-        System.out.println("<add> pkw <id> <marke> <modell> <baujahr> <grundpreis> <ueberpruefungsdatum> - Fuegt ein at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug hinzu, parameter sind verpflichtend");
+        System.out.println("<show> \"id\" - zeigt das Fahrzeug mit der uebergebenen ID. \n");
+        System.out.println("<show> \"id\" - zeigt alle Fahrzeuge an. \n");
+        System.out.println("<add> pkw <id> <marke> <modell> <baujahr> <grundpreis> <ueberpruefungsdatum> - Fuegt ein Fahrzeug hinzu, parameter sind verpflichtend");
         System.out.println("<del> \"id\" - loescht das at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug mit der uebergebenen ID aus der Liste.\n");
         System.out.println("<count> - gibt die Anzahl der gespeicherten Fahrzeuge zurueck.\n");
         System.out.println("<meanprice> - gibt den Durchschnittspreis der gespeicherten Fahrzeuge zurueck.\n");

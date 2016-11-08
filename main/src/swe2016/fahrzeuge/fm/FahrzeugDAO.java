@@ -4,7 +4,7 @@ import at.ac.univie.swe2016.fm.fahrzeuge.Fahrzeug;
 
 import java.util.ArrayList;
 
-public interface FahrzeugDao {
+public interface FahrzeugDAO {
     ArrayList<Fahrzeug> getFahrzeugList();
     Fahrzeug getFahrzeugById(int id);
     void speichereFahrzeug(Fahrzeug f);
