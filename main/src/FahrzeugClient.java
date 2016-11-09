@@ -38,6 +38,9 @@ public class FahrzeugClient {
                     manager.addFahrzeug(args);
                 }
         } else if(command.equalsIgnoreCase("del")){
+            if(args.length > 3){
+                throw new IllegalArgumentException("Beim loeschen eines Fahrzeuges muss eine ID angegeben werden");
+            }
             manager.loescheFahrzeug(args[2]);
 
         } else if(command.equalsIgnoreCase("count")){
@@ -55,13 +58,18 @@ public class FahrzeugClient {
                 }
             }
         } else if(command.equalsIgnoreCase("meanprice")){
-            if(args[2].toLowerCase().equals("lkw")){
-                manager.meanPriceLKW();
-            } else if(args[2].equalsIgnoreCase("PKW")){
-                manager.meanPricePKW();
-            } else {
-                manager.meanPrice();
-            }
+           if(args.length <= 3){
+               if(args.length <= 2){
+                   manager.meanPrice();
+               } else if(args[2].equalsIgnoreCase("lkw")){
+                   manager.meanPriceLKW();
+               } else if(args[2].equalsIgnoreCase("pkw")){
+                   manager.meanPricePKW();
+               } else {
+                   showHelpMenu();
+                   throw new IllegalArgumentException("Bitte beachten sie die Nutzung der Befehle");
+               }
+           }
         } else if(command.equalsIgnoreCase("meanage")){
             manager.meanAge();
         } else if(command.equalsIgnoreCase("oldest")){

@@ -7,6 +7,8 @@ import swe2016.fahrzeuge.fm.FahrzeugDAO;
 import swe2016.fahrzeuge.fm.SerializedFahrzeugDAO;
 
 import java.util.ArrayList;
+import java.text.DecimalFormat;
+import java.util.Iterator;
 
 /**
  * @author Ralph Dworzanski
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 public class FahrzeugManagement {
     private String path;
     private FahrzeugDAO dao;
+    private DecimalFormat decFormatter = new DecimalFormat("#.##");
 
     public FahrzeugManagement(String path){
         this.path = path;
@@ -47,15 +50,17 @@ public class FahrzeugManagement {
      * @param f FahrzeugObjekt
      */
     public void showFahrzeug(Fahrzeug f){
+        System.out.println("---------");
         System.out.println("ID: \t" + f.getId());
         System.out.println("Marke: \t" +f.getMarke());
         System.out.println("Modell: \t" +f.getModell());
-        System.out.println("Bauahr: \t" +f.getBaujahr());
-        System.out.println("Grundpreis: \t" +f.getGrundpreis());
-        System.out.println("Preis: \t" +f.getPreis());
+        System.out.println("Bauahr: \t" + decFormatter.format(f.getBaujahr()));
+        System.out.println("Grundpreis: \t" + decFormatter.format(f.getGrundpreis()));
+        System.out.println("Preis: \t" +decFormatter.format(f.getPreis()));
         if(f instanceof PKW){
             System.out.println(((PKW) f).getLetztePruefung());
         }
+        System.out.println("\n");
     }
 
     /**
@@ -64,12 +69,13 @@ public class FahrzeugManagement {
      */
     public void showFahrzeug(){
         for(Fahrzeug f : dao.getFahrzeugList()){
+            System.out.println("---------");
             System.out.println("ID: \t" + f.getId());
             System.out.println("Marke: \t" +f.getMarke());
             System.out.println("Modell: \t" +f.getModell());
-            System.out.println("Bauahr: \t" +f.getBaujahr());
-            System.out.println("Grundpreis: \t" +f.getGrundpreis());
-            System.out.println("Preis: \t" +f.getPreis());
+            System.out.println("Bauahr: \t" + decFormatter.format(f.getBaujahr()));
+            System.out.println("Grundpreis: \t" + decFormatter.format(f.getGrundpreis()));
+            System.out.println("Preis: \t" +decFormatter.format(f.getPreis()));
             if(f instanceof PKW) {
                 System.out.println(((PKW) f).getLetztePruefung());
             }
@@ -87,7 +93,7 @@ public class FahrzeugManagement {
             if(args[2].toLowerCase().equals("lkw")){
                 LKW l = new LKW(Integer.parseInt(args[3]),args[4],args[5],Double.parseDouble(args[6]),Double.parseDouble(args[7]));
                 dao.speichereFahrzeug(l);
-            } else if(args[3].toLowerCase().equals("pkw")){
+            } else if(args[2].toLowerCase().equals("pkw")){
                 PKW p = new PKW(Integer.parseInt(args[3]),args[4],args[5],Double.parseDouble(args[6]),Double.parseDouble(args[7]),args[8]);
                 dao.speichereFahrzeug(p);
             } else {
@@ -164,7 +170,7 @@ public class FahrzeugManagement {
         for(Fahrzeug f : fList){
             meanPrice =+ f.getPreis();
         }
-        System.out.println("Der Durchschnittspreis aller Fahrzeuge betraegt " + meanPrice);
+        System.out.println("Der Durchschnittspreis aller Fahrzeuge betraegt " + decFormatter.format(meanPrice));
     }
 
     /**
@@ -178,7 +184,7 @@ public class FahrzeugManagement {
                 meanPrice = +f.getPreis();
             }
         }
-        System.out.println("Der Durchschnittspreis aller PKW betraegt " + meanPrice);
+        System.out.println("Der Durchschnittspreis aller PKW betraegt " + decFormatter.format(meanPrice));
     }
 
     /**
@@ -192,7 +198,7 @@ public class FahrzeugManagement {
                 meanPrice = +f.getPreis();
             }
         }
-        System.out.println("Der Durchschnittspreis aller LKW betraegt " + meanPrice);
+        System.out.println("Der Durchschnittspreis aller LKW betraegt " + decFormatter.format(meanPrice));
     }
 
     /**
@@ -204,7 +210,7 @@ public class FahrzeugManagement {
             for(Fahrzeug f : dao.getFahrzeugList()){
                     meanAge = + f.getAlter();
             }
-            System.out.println("Das Durchschnittsalter aller Fahrzeuge betraegt " + meanAge/dao.getFahrzeugList().size());
+            System.out.println("Das Durchschnittsalter aller Fahrzeuge betraegt " + decFormatter.format(meanAge/dao.getFahrzeugList().size()));
         }
 
     /**
@@ -216,17 +222,20 @@ public class FahrzeugManagement {
             throw new IllegalArgumentException("Es befinden sich keine Fahrzeuge in der Liste");
         }
 
-        ArrayList<Fahrzeug> eldestVehicles = new ArrayList<>();
-        for(Fahrzeug f : dao.getFahrzeugList()){
-            for(Fahrzeug g : dao.getFahrzeugList()){
-                if(eldestVehicles.isEmpty() || g.getAlter() < f.getAlter()){
-                    eldestVehicles.add(f);
+        ArrayList<Fahrzeug> fl = dao.getFahrzeugList();
+
+        for(Iterator<Fahrzeug> iterator1 = dao.getFahrzeugList().iterator(); iterator1.hasNext();){
+            Fahrzeug f = iterator1.next();
+            for(Iterator<Fahrzeug> iterator2 = fl.iterator(); iterator2.hasNext();){
+                Fahrzeug g = iterator2.next();
+                if(f.getAlter() > g.getAlter()){
+                    fl.remove(g);
                 }
             }
         }
 
-        for(Fahrzeug f : eldestVehicles){
-            showFahrzeug(f);
+        for(Fahrzeug c : fl){
+            showFahrzeug(c);
         }
     }
 }
